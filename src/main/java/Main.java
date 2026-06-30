@@ -18,6 +18,7 @@ public class Main {
                     "\n 2- Exibir tarefas;" +
                     "\n 3- Buscar por id;" +
                     "\n 4- Atualizar tarefa;" +
+                    "\n 5- Remover tarefa;" +
                     "\n 0- Sair;" +
                     "\n Digite a opção desejada: ");
             opcao = sc.nextInt();
@@ -72,6 +73,19 @@ public class Main {
                 boolean conclusao = sc.nextBoolean();
 
                 tarefa.atualizarTarefa(idTarefa, nomeTarefa, descricao, conclusao);
+            }
+            else if(opcao == 5){
+                System.out.println("--- REMOVER TAREFA ---");
+
+                System.out.println("Digite o id da tarefa que deseja remover: ");
+                idTarefa = sc.nextInt();
+                sc.nextLine();
+
+                if(tarefa.removerTarefa(idTarefa) != null){
+                    System.out.println("Tarefa removida com sucesso.");
+                }else{
+                    System.out.println("Nenhuma tarefa removida");
+                }
             }
 
         }while(opcao != 0);

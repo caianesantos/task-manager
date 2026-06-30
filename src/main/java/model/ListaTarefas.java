@@ -19,10 +19,4 @@ public class ListaTarefas {
         this.tarefas = tarefas;
     }
 
-    //EXIBIR ID
-    public int ultimoIndexRegistrado(){
-
-            return this.tarefas.size() ;
-
-    }
 }

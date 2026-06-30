@@ -10,15 +10,17 @@ public class TarefaService implements TarefaInterface{
 
     private ListaTarefas tarefas = new ListaTarefas();
 
+    private int contadorId = 0;
+
     @Override
     public void adicionarTarefa(String nome, String descricao) {
         Tarefa novaTarefa = new Tarefa(nome, descricao);
 
-        int proximoId = tarefas.ultimoIndexRegistrado() + 1;
-        novaTarefa.setIdTarefa(proximoId);
+        contadorId++;
+        novaTarefa.setIdTarefa(contadorId);
         tarefas.getTarefas().add(novaTarefa);
 
-        System.out.println("Tarefa cadastrada. ID: " + tarefas.ultimoIndexRegistrado());
+        System.out.println("Tarefa cadastrada. ID: " + novaTarefa.getIdTarefa());
     }
 
     @Override
@@ -37,8 +39,6 @@ public class TarefaService implements TarefaInterface{
         return null;
     }
 
-
-
     @Override
     public Tarefa atualizarTarefa(int id, String nome, String descricao, boolean status) {
         Tarefa tarefaASerAtualizada = buscarPorId(id);
@@ -47,5 +47,17 @@ public class TarefaService implements TarefaInterface{
         tarefaASerAtualizada.setStatusTarefa(status);
 
         return tarefaASerAtualizada;
+    }
+
+    @Override
+    public Tarefa removerTarefa(int id) {
+        Tarefa tarefaASerRemovida = buscarPorId(id);
+        if(tarefaASerRemovida != null){
+            tarefas.getTarefas().remove( tarefaASerRemovida);
+            return tarefaASerRemovida;
+        }
+        else{
+            return null;
+        }
     }
 }
