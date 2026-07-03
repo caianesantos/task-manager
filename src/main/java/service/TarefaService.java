@@ -30,13 +30,10 @@ public class TarefaService implements TarefaInterface{
 
     @Override
     public Tarefa buscarPorId(int id) {
-        var lista = exibirTarefas();
-        for(Tarefa t : lista){
-            if(t.getIdTarefa() == id){
-                return t;
-            }
-        }
-        return null;
+        return exibirTarefas().stream()
+                .filter(t -> t.getIdTarefa() == id)
+                .findFirst()
+                .orElse(null);
     }
 
     @Override

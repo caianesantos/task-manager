@@ -51,10 +51,10 @@ public class Tarefa {
     @Override
     public String toString() {
         return "Tarefa" +
-                "\n Id da tarefa = " + (idTarefa )  +
-                "\n Nome da tarefa = " + nomeTarefa +
-                "\n Descrição da tarefa = " + descricaoTarefa +
-                "\n Status da tarefa = " + concluida +
+                "\n Id da tarefa = " + (this.idTarefa )  +
+                "\n Nome da tarefa = " + this.nomeTarefa +
+                "\n Descrição da tarefa = " + this.descricaoTarefa +
+                "\n Status da tarefa = " + this.concluida +
                 "\n";
     }
 
