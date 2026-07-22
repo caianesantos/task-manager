@@ -2,6 +2,7 @@ import contratos.TarefaInterface;
 import model.Tarefa;
 import service.TarefaService;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -12,7 +13,7 @@ public class Main {
         int opcao = 0;
         int idTarefa;
 
-        do{
+        do {
             System.out.println("-------- MENU --------" +
                     "\n 1- Cadastrar tarefa;" +
                     "\n 2- Exibir tarefas;" +
@@ -21,75 +22,82 @@ public class Main {
                     "\n 5- Remover tarefa;" +
                     "\n 0- Sair;" +
                     "\n Digite a opção desejada: ");
-            opcao = sc.nextInt();
-            sc.nextLine();
+            try {
+                opcao = sc.nextInt();
+                sc.nextLine();
 
 
-            switch(opcao) {
-                case 1 -> {
-                    System.out.println("--- CADASTRAR TAREFA ---");
-                    System.out.println("Digite um nome para a tarefa: ");
-                    String nomeTarefa = sc.nextLine();
-                    System.out.println("Digite uma descrição para a tarefa: ");
-                    String descricao = sc.nextLine();
-                    tarefa.adicionarTarefa(nomeTarefa, descricao);
-                }
-                case 2 -> {
-                    System.out.println("--- SUAS TAREFAS ---");
-                    var lista = tarefa.exibirTarefas();
-                    if(lista.isEmpty()){
-                        System.out.println("Nenhuma tarefa cadastrada.");
+
+                switch (opcao) {
+                    case 1 -> {
+                        System.out.println("--- CADASTRAR TAREFA ---");
+                        System.out.println("Digite um nome para a tarefa: ");
+                        String nomeTarefa = sc.nextLine();
+                        System.out.println("Digite uma descrição para a tarefa: ");
+                        String descricao = sc.nextLine();
+                        tarefa.adicionarTarefa(nomeTarefa, descricao);
                     }
-                    else{
-                        lista.forEach(System.out::println);
+                    case 2 -> {
+                        System.out.println("--- SUAS TAREFAS ---");
+                        var lista = tarefa.exibirTarefas();
+                        if (lista.isEmpty()) {
+                            System.out.println("Nenhuma tarefa cadastrada.");
+                        } else {
+                            lista.forEach(System.out::println);
+                        }
                     }
-                }
-                case 3 -> {
-                    System.out.println("--- TAREFA POR ID ---");
-                    System.out.println("Digite o id da tarefa que deseja encontrar: ");
-                    idTarefa = sc.nextInt();
-                    sc.nextLine();
-                    if(tarefa.buscarPorId(idTarefa) != null){
-                        System.out.println("Tarefa encontrada: ");
-                        System.out.println(tarefa.buscarPorId(idTarefa));
-                    }else{
-                        System.out.println("Nenhuma tarefa encontrada");
+                    case 3 -> {
+                        System.out.println("--- TAREFA POR ID ---");
+                        System.out.println("Digite o id da tarefa que deseja encontrar: ");
+                        idTarefa = sc.nextInt();
+                        sc.nextLine();
+                        if (tarefa.buscarPorId(idTarefa) != null) {
+                            System.out.println("Tarefa encontrada: ");
+                            System.out.println(tarefa.buscarPorId(idTarefa));
+                        } else {
+                            System.out.println("Nenhuma tarefa encontrada");
+                        }
                     }
-                }
 
-                case 4 -> {
-                    System.out.println("--- ATUALIZAR TAREFA ---");
+                    case 4 -> {
+                        System.out.println("--- ATUALIZAR TAREFA ---");
 
-                    System.out.println("Digite o id da tarefa que deseja atualizar: ");
-                    idTarefa = sc.nextInt();
-                    sc.nextLine();
+                        System.out.println("Digite o id da tarefa que deseja atualizar: ");
+                        idTarefa = sc.nextInt();
+                        sc.nextLine();
 
-                    System.out.println("Digite o novo nome da tarefa: ");
-                    String nomeTarefa = sc.nextLine();
+                        System.out.println("Digite o novo nome da tarefa: ");
+                        String nomeTarefa = sc.nextLine();
 
-                    System.out.println("Digite a nova descrição da tarefa: ");
-                    String descricao = sc.nextLine();
+                        System.out.println("Digite a nova descrição da tarefa: ");
+                        String descricao = sc.nextLine();
 
-                    System.out.println("Conclua a tarefa atualizando para true: ");
-                    boolean conclusao = sc.nextBoolean();
+                        System.out.println("Conclua a tarefa atualizando para true: ");
+                        boolean conclusao = sc.nextBoolean();
 
-                    tarefa.atualizarTarefa(idTarefa, nomeTarefa, descricao, conclusao);
-                }
-                case 5 -> {
-                    System.out.println("--- REMOVER TAREFA ---");
-
-                    System.out.println("Digite o id da tarefa que deseja remover: ");
-                    idTarefa = sc.nextInt();
-                    sc.nextLine();
-
-                    if(tarefa.removerTarefa(idTarefa) != null){
-                        System.out.println("Tarefa removida com sucesso.");
-                    }else{
-                        System.out.println("Nenhuma tarefa removida");
+                        tarefa.atualizarTarefa(idTarefa, nomeTarefa, descricao, conclusao);
                     }
+                    case 5 -> {
+                        System.out.println("--- REMOVER TAREFA ---");
+
+                        System.out.println("Digite o id da tarefa que deseja remover: ");
+                        idTarefa = sc.nextInt();
+                        sc.nextLine();
+
+                        if (tarefa.removerTarefa(idTarefa) != null) {
+                            System.out.println("Tarefa removida com sucesso.");
+                        } else {
+                            System.out.println("Nenhuma tarefa removida");
+                        }
+                    }
+                    case 0 -> System.out.println("--- ENCERRANDO PROGRAMA ---");
+                    default -> System.out.println("Opção inválida. Tente novamente.");
                 }
-                case 0 -> System.out.println("--- ENCERRANDO PROGRAMA ---");
-                default -> System.out.println("Opção inválida. Tente novamente.");
+
+            }catch (InputMismatchException e) {
+                System.out.println("Entrada inválida! Por favor, digite apenas números.");
+                sc.nextLine();
+                opcao = -1;
             }
 
         }while(opcao != 0);
