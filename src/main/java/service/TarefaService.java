@@ -3,7 +3,8 @@ package service;
 import contratos.TarefaInterface;
 import model.ListaTarefas;
 import model.Tarefa;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 
 public class TarefaService implements TarefaInterface{
@@ -11,6 +12,8 @@ public class TarefaService implements TarefaInterface{
     private ListaTarefas tarefas = new ListaTarefas();
 
     private int contadorId = 0;
+
+    private static final Logger log = LoggerFactory.getLogger(TarefaService.class);
 
     @Override
     public void adicionarTarefa(String nome, String descricao) {
@@ -20,7 +23,7 @@ public class TarefaService implements TarefaInterface{
         novaTarefa.setIdTarefa(contadorId);
         tarefas.getTarefas().add(novaTarefa);
 
-        System.out.println("Tarefa cadastrada. ID: " + novaTarefa.getIdTarefa());
+        log.info("Tarefa cadastrada. ID: " + novaTarefa.getIdTarefa());
     }
 
     @Override
